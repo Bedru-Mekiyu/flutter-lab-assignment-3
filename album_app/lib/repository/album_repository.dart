@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../models/album.dart';
 import '../models/photo.dart';
@@ -11,7 +12,7 @@ class AlbumRepository {
   Future<List<Album>> fetchAlbums() async {
     try {
       final response = await client.get(Uri.parse('https://jsonplaceholder.typicode.com/albums'));
-      print('Albums response: ${response.body}');
+      debugPrint('Albums response: ${response.body}');
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
         final futures = data.map((json) => client.get(Uri.parse('https://jsonplaceholder.typicode.com/photos?albumId=${json['id']}&_limit=1')));
@@ -32,7 +33,7 @@ class AlbumRepository {
         throw Exception('Failed to load albums: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error fetching albums: $e');
+      debugPrint('Error fetching albums: $e');
       throw Exception('Network error: $e');
     }
   }
@@ -40,7 +41,7 @@ class AlbumRepository {
   Future<List<Photo>> fetchPhotos(int albumId) async {
     try {
       final response = await client.get(Uri.parse('https://jsonplaceholder.typicode.com/photos?albumId=$albumId'));
-      print('Photos response for album $albumId: ${response.body}');
+      debugPrint('Photos response for album $albumId: ${response.body}');
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
         return data.map((json) => Photo.fromJson(json)).toList();
@@ -48,7 +49,7 @@ class AlbumRepository {
         throw Exception('Failed to load photos: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error fetching photos: $e');
+      debugPrint('Error fetching photos: $e');
       throw Exception('Network error: $e');
     }
   }

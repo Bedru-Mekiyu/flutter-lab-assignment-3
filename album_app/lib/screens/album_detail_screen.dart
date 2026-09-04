@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/album_bloc.dart';
-import '../bloc/album_event.dart';
 import '../bloc/album_state.dart';
 import '../viewmodel/album_viewmodel.dart';
 
@@ -80,7 +79,7 @@ class AlbumDetailScreen extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          color: Colors.white.withOpacity(0.9),
+                          color: Colors.white.withValues(alpha: 0.9),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -95,7 +94,7 @@ class AlbumDetailScreen extends StatelessWidget {
                                       child: CircularProgressIndicator(color: Colors.blueAccent),
                                     ),
                                     errorWidget: (context, url, error) {
-                                      print('Image load error for URL: $url, error: $error');
+                                      debugPrint('Image load error for URL: $url, error: $error');
                                       return Container(
                                         color: Colors.grey[200],
                                         child: const Center(

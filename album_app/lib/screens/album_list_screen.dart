@@ -61,7 +61,7 @@ class AlbumListScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                     child: ListTile(
                       contentPadding: const EdgeInsets.all(12),
                       leading: album.thumbnailUrl != null
@@ -76,7 +76,7 @@ class AlbumListScreen extends StatelessWidget {
                             child: CircularProgressIndicator(color: Colors.blueAccent),
                           ),
                           errorWidget: (context, url, error) {
-                            print('Image load error for URL: $url, error: $error');
+                            debugPrint('Image load error for URL: $url, error: $error');
                             return Container(
                               width: 60,
                               height: 60,
