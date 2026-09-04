@@ -12,7 +12,9 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  final AlbumRepository? repository;
+
+  MyApp({super.key, this.repository});
 
   final _router = GoRouter(
     routes: [
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (context) => AlbumRepository(http.Client()),
+      create: (context) => repository ?? AlbumRepository(http.Client()),
       child: BlocProvider(
         create: (context) => AlbumBloc(context.read<AlbumRepository>()),
         child: MaterialApp.router(
